@@ -26,6 +26,18 @@ public class DefaultBeanDefinition implements BeanDefinition {
     private List<?> constructorArg;
     private Map<String,Object> values;
 
+    public void setConstructorArg(List<?> constructorArg) {
+        this.constructorArg = constructorArg;
+    }
+
+    public String getStaticCreateBeanMethodName() {
+        return staticCreateBeanMethodName;
+    }
+
+    public void setStaticCreateBeanMethodName(String staticCreateBeanMethodName) {
+        this.staticCreateBeanMethodName = staticCreateBeanMethodName;
+    }
+
     public void setClazz(Class<?> clazz) {
         this.clazz = clazz;
     }
