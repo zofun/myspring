@@ -1,5 +1,7 @@
 package bean.factory;
 
+import bean.postProcess.AopPostProcessor;
+
 import java.util.Map;
 
 /**
@@ -11,5 +13,6 @@ public interface BeanFactory {
     String[] getBeanNameForType(Class<?> tclass);
     Map<String,Object> getBeansForType(Class<?> tclass);
     Class getType(String beanName);
+    void registerBeanPostProcessor(AopPostProcessor processor);
 
 }

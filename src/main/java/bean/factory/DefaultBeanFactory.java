@@ -3,6 +3,7 @@ package bean.factory;
 import bean.beanDefinition.BeanDefinition;
 import bean.beanDefinition.BeanDeginitionRegister;
 import bean.beanReference.BeanReference;
+import bean.postProcess.AopPostProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,6 +23,10 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
 
     private Map<String, BeanDefinition> bdMap=new ConcurrentHashMap<>();
     private Map<String,Object> beanMap=new ConcurrentHashMap<>();
+
+
+    //记录观察者
+    private List<AopPostProcessor> aopPostProcessors = new ArrayList<>();
 
     /**
      * 记录正在创建的bean
@@ -50,6 +55,11 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
     }
 
     @Override
+    public void registerBeanPostProcessor(AopPostProcessor processor) {
+        aopPostProcessors.add(processor);
+    }
+
+    @Override
     public void register(BeanDefinition def, String beanName) {
 
         if(bdMap.containsKey(beanName)){
@@ -74,6 +84,12 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
         return bdMap.get(beanName);
     }
 
+    /**
+     * 真正完成bean的获取或创建的代码
+     * @param beanName
+     * @return
+     * @throws Exception
+     */
     private Object doGetBean(String beanName) throws Exception{
         if(!beanMap.containsKey(beanName)){
             log.info("["+beanName+"]"+"不存在,正在尝试创建");
@@ -103,6 +119,8 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
 
         }
         BeanDefinition beanDefinition = this.bdMap.get(beanName);
+
+        //bean生命周期第一步，实例化
         Class<?> beanClass = beanDefinition.getBeanClass();
         if(beanClass!=null){
             instance=createBeanByConstruct(beanDefinition);
@@ -115,15 +133,31 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
         }
 
 
-        //调用init方法
-
-        doInit(beanDefinition,instance);
-        //添加属性依赖
-
+        //bean生命周期第二步，完成属性注入，添加属性依赖
         parsePropertyValues(beanDefinition,instance);
+
+        //bean生命周期第三步，为实现XXXAware的bean注入相应的属性
+        //todo Aware的处理
+        //bean生命周期第四步，为实现BeanPostProcess接口的bean，调用相应的方法postProcessBeforeInitialization，
+
+        //todo BeanPostProcess接口的处理
+
+        //bean生命周期第五步，调用init方法
+        doInit(beanDefinition,instance);
+
+        //bean生命周期第六步，调用的实现BeanPostProcess接口的bean的相应的方法postProcessAfterInitialization
+        //todo BeanPostProcess接口的处理
 
         //从正在创建set中移除
         beans.remove(beanName);
+
+        //添加aop处理
+        instance = applyAopBeanPostProcessor(instance, beanName);
+
+
+        if(instance != null && beanDefinition.isSingleton()){
+            beanMap.put(beanName, instance);
+        }
 
 
         return instance;
@@ -131,6 +165,20 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
 
     }
 
+    /**
+     * 进行aop处理
+     * @param instance
+     * @param beanName
+     * @return
+     * @throws Exception
+     */
+    private Object applyAopBeanPostProcessor(Object instance, String beanName) throws Exception {
+        for(AopPostProcessor postProcessor: aopPostProcessors){
+            System.out.println("一个postProcessor");
+            instance = postProcessor.postProcessWeaving(instance, beanName);
+        }
+        return instance;
+    }
 
     /**do
      * 使用beanDefinition的构造器创建对象
@@ -392,7 +440,7 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
     public void close() throws IOException {
 
         Set<Map.Entry<String, BeanDefinition>> entries = bdMap.entrySet();
-        //调用所有bean的destory方法
+        //b调用所有bean的destory方法
         for(Map.Entry<String, BeanDefinition>  entry: entries){
             BeanDefinition value = entry.getValue();
             String destoryMethodName = value.getBeanDestoryMethodName();

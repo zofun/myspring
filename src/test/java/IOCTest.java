@@ -63,6 +63,11 @@ public class IOCTest {
 
     }
 
+
+    /**
+     * 测试init方法的调用
+     * @throws Exception
+     */
     @Test
     public void testC() throws Exception {
         DefaultBeanDefinition bd=new DefaultBeanDefinition();

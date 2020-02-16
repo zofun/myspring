@@ -1,6 +1,8 @@
 package bean;
 
-public class User {
+import java.io.Closeable;
+
+public class User  {
     private String name;
     private int age;
 
@@ -31,5 +33,9 @@ public class User {
 
     public void init(){
         System.out.println("init方法被调用了");
+    }
+
+    public void sayHello(){
+        System.out.println(name+": hello!");
     }
 }
