@@ -48,8 +48,9 @@ public class AopTest {
         aapc.register(new RegexMatchAdvisor("BeforeAdvice", "execution(* bean.User.*())", new RegexExpressionPointCutResolver()));
 
 
+        final Object bean = factory.getBean("user");
 
-        User user = (User) factory.getBean("user");
+        User user = (User) bean;
         user.sayHello();
     }
 

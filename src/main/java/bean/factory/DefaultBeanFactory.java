@@ -174,6 +174,7 @@ public class DefaultBeanFactory implements BeanFactory, BeanDeginitionRegister, 
      */
     private Object applyAopBeanPostProcessor(Object instance, String beanName) throws Exception {
         for(AopPostProcessor postProcessor: aopPostProcessors){
+            //植入增强
             instance = postProcessor.postProcessWeaving(instance, beanName);
         }
         return instance;
