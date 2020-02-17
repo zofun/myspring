@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
  * @ClassName : PointCut
  * @Author : TCW
  * @Date: 2020-02-16 11:10
+ * 切点
  */
 public interface PointCut {
     boolean matchsClass(Class<?> targetClass, String expresseion) throws Exception;

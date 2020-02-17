@@ -19,8 +19,19 @@ import java.util.List;
 public class AopUtils {
 
 
-
+    /**
+     *应用通知
+     * @param target
+     * @param proxy
+     * @param advisors
+     * @param args
+     * @param method
+     * @param beanFactory
+     * @return
+     * @throws Exception
+     */
     public static Object applyAdvice(Object target, Object proxy,List<Advisor> advisors, Object[] args, Method method, BeanFactory beanFactory) throws Exception {
+        //获取与该方法匹配的增强
         List<Advice> advices = getMatchMethodAdvice(method,target.getClass(), advisors, beanFactory);
         if(advisors==null||advisors.size()==0){
             //无增强，直接调用
@@ -47,8 +58,8 @@ public class AopUtils {
         }
         List<Advice> advices=new ArrayList<>();
         for (Advisor advisor : advisors) {
-            if(advices instanceof PointCutAdvisor){
-                PointCut resolver = ((PointCutAdvisor) advices).getPointCutResolver();
+            if(advisor instanceof PointCutAdvisor){
+                PointCut resolver = ((PointCutAdvisor) advisor).getPointCutResolver();
                 boolean flag = resolver.matchsMethod(aClass, method, advisor.getExpression());
                 if(flag){
                     advices.add((Advice) beanFactory.getBean(advisor.getAdviceBeanName()));

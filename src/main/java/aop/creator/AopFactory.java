@@ -11,9 +11,18 @@ import java.util.List;
  * @ClassName : AopFactory
  * @Author : TCW
  * @Date: 2020-02-16 11:31
+ * aop工厂方法
  */
 public interface AopFactory {
 
+    /**
+     * 创建代理提供对象
+     * @param target
+     * @param advisor
+     * @param beanFactory
+     * @param beanName
+     * @return
+     */
     AopProxy createAopProxyInstance(Object target, List<Advisor> advisor, BeanFactory beanFactory, String beanName);
 
     /**
@@ -27,7 +36,10 @@ public interface AopFactory {
         return interfaces.length>0;
     }
 
-    //不通过创建代理 直接调用
+    /**
+     * 创建代理提供对象
+     * @return
+     */
     static AopFactory createProxyInstance(){
         return new GenericAopFactory();
     }

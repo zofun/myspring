@@ -41,6 +41,7 @@ public class CglibDynamicProxy implements MethodInterceptor,AopProxy {
 
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Exception {
+
         return AopUtils.applyAdvice(target, o, advisors, objects, method, beanFactory);
     }
 

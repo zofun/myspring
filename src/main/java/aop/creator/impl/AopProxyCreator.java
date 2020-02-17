@@ -45,7 +45,7 @@ public class AopProxyCreator implements AdvisorRegister, BeanFactoryAware, AopPo
     @Override
     public Object postProcessWeaving(Object bean, String beanName) throws Exception {
         //获取和当前bean匹配的advisor
-        List<Advisor> matchAdvisor = new ArrayList<>();
+        List<Advisor> matchAdvisor ;
         matchAdvisor = getMatchAdvisor(bean);
         //对bean进行增强
         if(!CollectionUtils.isEmpty(matchAdvisor)){

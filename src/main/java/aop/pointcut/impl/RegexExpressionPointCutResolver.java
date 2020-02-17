@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
  * @ClassName : RegexExpressionPointCutResolver
  * @Author : TCW
  * @Date: 2020-02-16 17:05
+ * 解析切点表达式，提供了匹配class和method的方法
  */
 public class RegexExpressionPointCutResolver implements RegexExpressionPointCut {
     @Override
