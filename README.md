@@ -48,3 +48,10 @@ JDK动态代理是面向接口的代理模式。
 CGLib是一个强大、高性能的Code生产类库，可以实现运行期动态扩展java类，Spring在运行期间通过CGlib**继承**（因此final修饰的类无能为力）要被动态代理的类，重写父类的方法，实现AOP面向切面编程呢。CGlib是面向底层字节码的。
 
 ![AOP类图](https://s2.ax1x.com/2020/02/16/3SRmes.md.png)
+
+
+
+## ApplicationContext的实现
+![类图](https://s2.ax1x.com/2020/02/17/3iVybq.md.png)
+![3iV02Q.png](https://s2.ax1x.com/2020/02/17/3iV02Q.png)
+
