@@ -9,7 +9,7 @@ BeanFactory（接口）:存放bean，需要使用Bean从BeanFactory中取即可�
 BeanFactoryRegister（接口）:用于注册bean到BeanFactory，获取bean对应的BeanDefinition。
 
 
-![IOC容器类图](https://s2.ax1x.com/2020/02/16/3SfRRf.md.png)
+![IOC容器类图](https://github.com/zofun/myspring/blob/master/img/ioc.png)
 
 
 [参考的博客](https://juejin.im/post/5c11b1e06fb9a04a0d56b787)
@@ -22,7 +22,7 @@ BeanFactoryRegister（接口）:用于注册bean到BeanFactory，获取bean对�
 类的作用解释：
 BeanReference：标识bean的类型。
 
-![DI类图](https://s2.ax1x.com/2020/02/16/3Sfgit.md.png)
+![DI类图](https://github.com/zofun/myspring/blob/master/img/di.png)
 
 
 
@@ -47,19 +47,19 @@ JDK动态代理是面向接口的代理模式。
 2. CGlib动态代理的实现原理
 CGLib是一个强大、高性能的Code生产类库，可以实现运行期动态扩展java类，Spring在运行期间通过CGlib**继承**（因此final修饰的类无能为力）要被动态代理的类，重写父类的方法，实现AOP面向切面编程呢。CGlib是面向底层字节码的。
 
-![AOP类图](https://s2.ax1x.com/2020/02/16/3SRmes.md.png)
+![AOP类图](https://github.com/zofun/myspring/blob/master/img/aop.png)
 
 
 
 ## ApplicationContext的实现
-![类图](https://s2.ax1x.com/2020/02/17/3iVybq.md.png)
-![3iV02Q.png](https://s2.ax1x.com/2020/02/17/3iV02Q.png)
+![类图](https://github.com/zofun/myspring/blob/master/img/a1.png)
+![3iV02Q.png](https://github.com/zofun/myspring/blob/master/img/a2.png)
 
 
 
 ## MVC的实现
 一个请求的处理过程
-![mvc请求的处理露出](https://s2.ax1x.com/2020/02/18/3FOj7d.md.png)
+![mvc请求的处理露出](https://github.com/zofun/myspring/blob/master/img/mvc.png)
 
 
 
