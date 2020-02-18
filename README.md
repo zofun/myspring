@@ -55,3 +55,11 @@ CGLib是一个强大、高性能的Code生产类库，可以实现运行期动�
 ![类图](https://s2.ax1x.com/2020/02/17/3iVybq.md.png)
 ![3iV02Q.png](https://s2.ax1x.com/2020/02/17/3iV02Q.png)
 
+
+
+## MVC的实现
+一个请求的处理过程
+![mvc请求的处理露出](https://s2.ax1x.com/2020/02/18/3FOj7d.md.png)
+
+
+

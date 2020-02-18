@@ -42,6 +42,14 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
     }
 
+
+    /**
+     * 解析xml标签
+     * @param res
+     * @throws IOException
+     * @throws DocumentException
+     * @throws ClassNotFoundException
+     */
     private void parse(Resource res) throws IOException, DocumentException, ClassNotFoundException {
         InputStream inputStream = res.getInputStream();
         //获取document对象
@@ -68,6 +76,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             }
 
             if(beanDefinition.getBeanName() != null){
+                //解析完成后，将beanDefinition进行注册
                 this.register.register(beanDefinition, beanDefinition.getBeanName());
             }
         }
